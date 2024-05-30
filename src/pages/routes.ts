@@ -2,7 +2,12 @@ const routes = {
   HOME: '/',
   AUTH: '/auth',
   GOALS: '/goals',
-  NEW: '/new',
+  CREATE: {
+    GOAL: '/create/goal',
+    BOOK: '/create/book',
+    POMODORO: '/create/pomodoro',
+  },
+  NEW_USER: '/new-user',
   BOOKS: '/books',
   ME: '/me',
 } as const;

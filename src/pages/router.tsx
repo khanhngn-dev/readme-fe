@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import App from '@/App';
 import Authenticated from '@/components/Authenticated';
+import RootLayout from '@/components/Layout/RootLayout';
 
 import LoginPage from './auth';
 import ErrorPage from './error';
@@ -12,15 +14,20 @@ const router = createBrowserRouter([
     // No path
     // Global error boundary
     errorElement: <ErrorPage />,
+    element: <App />,
     children: [
       {
         path: routes.HOME,
         element: (
           <Authenticated>
-            <HomePage />
+            <RootLayout />
           </Authenticated>
         ),
         children: [
+          {
+            path: routes.HOME,
+            element: <HomePage />,
+          },
           {
             path: routes.ME,
             element: <div>Me</div>,
@@ -28,10 +35,6 @@ const router = createBrowserRouter([
           {
             path: routes.GOALS,
             element: <div>Goals</div>,
-          },
-          {
-            path: routes.NEW,
-            element: <div>New</div>,
           },
           {
             path: routes.BOOKS,

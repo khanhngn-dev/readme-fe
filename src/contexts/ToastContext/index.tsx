@@ -2,11 +2,13 @@ import * as Toast from '@radix-ui/react-toast';
 import { createContext, useCallback, useEffect, useRef, useState } from 'react';
 
 import { cn } from '@/lib/cn';
+import { noop } from '@/lib/common';
 
 type Message = {
   title: string;
   description?: string;
   action?: React.ReactNode;
+  icon?: React.ReactNode;
   altText?: string;
 } & Toast.ToastProviderProps;
 
@@ -16,8 +18,8 @@ type ToastContextType = {
 };
 
 export const ToastContext = createContext<ToastContextType>({
-  toast: () => {},
-  closeToast: () => {},
+  toast: noop,
+  closeToast: noop,
 });
 
 type ToastContextProviderProps = {
@@ -29,7 +31,8 @@ const ToastProvider: React.FC<ToastContextProviderProps> = ({ children }) => {
   const [message, setMessage] = useState<Message | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { title, action, altText, description, ...provider } = message || {};
+  const { title, action, altText, description, icon, ...provider } =
+    message || {};
 
   const toast = useCallback((message: Message) => {
     setOpen(false);
@@ -58,7 +61,7 @@ const ToastProvider: React.FC<ToastContextProviderProps> = ({ children }) => {
         {children}
         <Toast.Root
           className={cn(
-            "bg-white rounded-md shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] p-[15px] grid [grid-template-areas:_'icon_title_action'_'icon_description_action'] grid-cols-[auto_max-content] gap-x-[15px] items-center data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut",
+            'bg-white rounded-md shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] p-[15px] flex items-center gap-3 data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut',
           )}
           open={open}
           onOpenChange={(o) => {
@@ -68,21 +71,22 @@ const ToastProvider: React.FC<ToastContextProviderProps> = ({ children }) => {
             }
           }}
         >
-          <Toast.Title
-            className={cn(
-              '[grid-area:_title] mb-[5px] font-medium text-slate12 text-[15px]',
+          {icon && <div className="">{icon}</div>}
+          <div className="flex-1">
+            <Toast.Title className={cn('font-medium text-slate12 text-[15px]')}>
+              {title}
+            </Toast.Title>
+            {description && (
+              <Toast.Description className="m-0 mt-[5px] text-slate11 text-[13px] leading-[1.3]">
+                {description}
+              </Toast.Description>
             )}
-          >
-            {title}
-          </Toast.Title>
-          <Toast.Description className="[grid-area:_description] m-0 text-slate11 text-[13px] leading-[1.3]">
-            {description}
-          </Toast.Description>
+          </div>
           {action && (
             <Toast.Action
               asChild
               altText={altText || title || 'Toast action'}
-              className={cn('[grid-area:_action]')}
+              className={cn('')}
             >
               {action}
             </Toast.Action>

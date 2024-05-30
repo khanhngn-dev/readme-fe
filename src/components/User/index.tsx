@@ -14,7 +14,7 @@ const User: React.FC<UserProps> = ({ fallback, className, ...props }) => {
     <Avatar
       className={cn('rounded-xl h-8 w-8', className)}
       fallback={fallback ?? user.email![0]}
-      src={user.user_metadata.avatar_url}
+      src={user.avatar ?? undefined}
       {...props}
     />
   );

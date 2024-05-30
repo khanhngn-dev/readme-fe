@@ -2,8 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, TextField } from '@radix-ui/themes';
 import {
   IconBook2,
-  IconBrandFacebook,
   IconBrandGoogle,
+  IconLoader,
   IconMail,
 } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -78,6 +78,9 @@ const LoginPage = () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
+        options: {
+          redirectTo: window.location.href,
+        },
       });
       if (error) throw error;
     } catch (error: any) {
@@ -128,18 +131,24 @@ const LoginPage = () => {
           )}
           <Button
             type="submit"
-            className="mt-4 w-full rounded-xl"
+            className="mt-4 w-full rounded-xl cursor-pointer"
             size={'3'}
             disabled={hasErrors || isSubmitting}
-            loading={isSubmitting}
           >
-            Continue
+            {isSubmitting ? (
+              <>
+                <IconLoader className="animate-spin" />
+                Sending OTP
+              </>
+            ) : (
+              'Continue'
+            )}
           </Button>
         </form>
         <Divider className="my-4 text-black/60">or</Divider>
         <div className="space-y-4 mt-4 w-full">
           <Button
-            className="flex w-full rounded-xl"
+            className="flex w-full rounded-xl cursor-pointer"
             size={'3'}
             variant="soft"
             color="jade"
@@ -149,8 +158,8 @@ const LoginPage = () => {
             <IconBrandGoogle />
             Google
           </Button>
-          <Button
-            className="flex w-full rounded-xl"
+          {/* <Button
+            className="flex w-full rounded-xl cursor-pointer"
             size={'3'}
             radius="large"
             variant="soft"
@@ -158,7 +167,7 @@ const LoginPage = () => {
           >
             <IconBrandFacebook />
             Facebook
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div
@@ -174,13 +183,19 @@ const LoginPage = () => {
         <div className="mt-8">
           <OtpInput value={otp} onChange={setOtp} disabled={isSubmitting} />
           <Button
-            className="mt-4 w-full rounded-xl"
+            className="mt-4 w-full rounded-xl cursor-pointer"
             size={'3'}
             onClick={onVerifyOtp}
             disabled={isSubmitting || otp.length !== 6}
-            loading={isSubmitting}
           >
-            Verify OTP
+            {isSubmitting ? (
+              <>
+                <IconLoader className="animate-spin" />
+                Verifying OTP
+              </>
+            ) : (
+              'Verify OTP'
+            )}
           </Button>
         </div>
       </div>
