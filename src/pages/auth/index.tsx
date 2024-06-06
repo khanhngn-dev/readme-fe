@@ -48,7 +48,7 @@ const LoginPage = () => {
       setIsOtpStep(true);
     } catch (error: any) {
       toast({
-        title: 'Failed to send OTP',
+        title: 'failed to send OTP',
         description: error.message,
       });
     }
@@ -66,7 +66,7 @@ const LoginPage = () => {
       if (error) throw error;
     } catch (error: any) {
       toast({
-        title: 'Failed to verify OTP',
+        title: 'failed to verify OTP',
         description: error.message,
       });
     }
@@ -85,7 +85,7 @@ const LoginPage = () => {
       if (error) throw error;
     } catch (error: any) {
       toast({
-        title: 'Failed to sign in with Google',
+        title: 'failed to sign in with Google',
         description: error.message,
       });
     }
@@ -107,7 +107,7 @@ const LoginPage = () => {
         <h3 className="text-2xl mt-2">login to continue</h3>
         <form className="mt-12 w-full" onSubmit={handleSubmit(onEmailSubmit)}>
           <label htmlFor="email" className="block sr-only">
-            Email
+            email
           </label>
           <TextField.Root
             size={'3'}
@@ -138,10 +138,10 @@ const LoginPage = () => {
             {isSubmitting ? (
               <>
                 <IconLoader className="animate-spin" />
-                Sending OTP
+                sending OTP
               </>
             ) : (
-              'Continue'
+              'continue'
             )}
           </Button>
         </form>
@@ -156,7 +156,7 @@ const LoginPage = () => {
             onClick={onGoogleSignIn}
           >
             <IconBrandGoogle />
-            Google
+            google
           </Button>
           {/* <Button
             className="flex w-full rounded-xl cursor-pointer"
@@ -191,10 +191,10 @@ const LoginPage = () => {
             {isSubmitting ? (
               <>
                 <IconLoader className="animate-spin" />
-                Verifying OTP
+                verifying OTP
               </>
             ) : (
-              'Verify OTP'
+              'verify OTP'
             )}
           </Button>
         </div>

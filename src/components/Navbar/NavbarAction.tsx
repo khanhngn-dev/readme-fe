@@ -59,7 +59,7 @@ const NavbarAction = () => {
             ) : (
               <IconPlayerPlay size={24} />
             )}
-            {isRunning ? 'Stop timer' : 'Start timer'}
+            {isRunning ? 'stop timer' : 'start timer'}
           </button>
         </DropdownMenu.Item>
         <DropdownMenu.Item
@@ -68,7 +68,7 @@ const NavbarAction = () => {
         >
           <Link to={routes.CREATE.BOOK}>
             <IconBook size={24} />
-            Start a new book
+            start a new book
           </Link>
         </DropdownMenu.Item>
         <DropdownMenu.Item
@@ -77,7 +77,7 @@ const NavbarAction = () => {
         >
           <Link to={routes.CREATE.GOAL}>
             <IconCircleDashedCheck size={24} />
-            Goal
+            goal
           </Link>
         </DropdownMenu.Item>
       </DropdownMenu.Content>

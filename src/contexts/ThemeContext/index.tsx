@@ -40,6 +40,7 @@ const ThemeProvider: React.FC<ThemeContextProviderProps> = ({ children }) => {
         className={isDarkMode ? 'dark' : ''}
         accentColor={color.accentColor}
         grayColor={color.grayColor}
+        hasBackground={false}
       >
         {children}
       </Theme>

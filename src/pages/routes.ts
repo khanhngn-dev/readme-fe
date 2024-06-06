@@ -7,9 +7,10 @@ const routes = {
     BOOK: '/create/book',
     POMODORO: '/create/pomodoro',
   },
-  NEW_USER: '/new-user',
   BOOKS: '/books',
-  ME: '/me',
+  NEW_USER: '/new-user',
+  USER: '/u/:id',
+  CURRENT_USER: '/u',
 } as const;
 
 export default routes;

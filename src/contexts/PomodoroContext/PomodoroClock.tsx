@@ -1,3 +1,4 @@
+import { Portal } from '@radix-ui/themes';
 import {
   IconAlarm,
   IconBeach,
@@ -43,7 +44,7 @@ const PomodoroClock = () => {
   const Icon = IconMap[pomodoroState];
 
   return (
-    <div
+    <Portal
       ref={containerRef}
       className={cn(
         'fixed max-w-3xl top-0 h-0 left-1/2 -translate-x-1/2 w-full',
@@ -62,9 +63,12 @@ const PomodoroClock = () => {
             100
           }
           className={cn(
-            'w-12 h-12 transition-all duration-300',
+            'w-12 h-12 transition-all duration-300 rounded-[inherit]',
             open && 'w-28 h-28',
           )}
+          classNames={{
+            root: 'rounded-[inherit]',
+          }}
           strokeWidth={4}
         >
           <Icon size={iconSize} className="transition-all duration-300" />
@@ -103,7 +107,7 @@ const PomodoroClock = () => {
           />
         </div>
       </div>
-    </div>
+    </Portal>
   );
 };
 

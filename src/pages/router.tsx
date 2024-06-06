@@ -1,23 +1,22 @@
-import { createBrowserRouter } from 'react-router-dom';
+/* eslint-disable react-refresh/only-export-components */
+import { createBrowserRouter, json } from 'react-router-dom';
 
 import App from '@/App';
 import Authenticated from '@/components/Authenticated';
 import RootLayout from '@/components/Layout/RootLayout';
+import { getUserById } from '@/services/user';
 
-import LoginPage from './auth';
 import ErrorPage from './error';
-import HomePage from './home';
 import routes from './routes';
 
 const router = createBrowserRouter([
   {
-    // No path
+    // Providers
+    element: <App />,
     // Global error boundary
     errorElement: <ErrorPage />,
-    element: <App />,
     children: [
       {
-        path: routes.HOME,
         element: (
           <Authenticated>
             <RootLayout />
@@ -26,11 +25,37 @@ const router = createBrowserRouter([
         children: [
           {
             path: routes.HOME,
-            element: <HomePage />,
+            lazy: async () => {
+              const Component = await import('@/pages/home');
+              return {
+                Component: Component.default,
+              };
+            },
           },
           {
-            path: routes.ME,
-            element: <div>Me</div>,
+            path: routes.USER,
+            lazy: async () => {
+              const Component = await import('@/pages/user');
+              return {
+                Component: Component.default,
+              };
+            },
+            loader: async ({ params }) => {
+              const { id } = params;
+              if (!id) throw new Response('missing user ID', { status: 404 });
+              const user = await getUserById(id);
+              if (!user) throw new Response('user not found', { status: 404 });
+              return json(user.data);
+            },
+          },
+          {
+            path: routes.CURRENT_USER,
+            lazy: async () => {
+              const Component = await import('@/pages/current-user');
+              return {
+                Component: Component.default,
+              };
+            },
           },
           {
             path: routes.GOALS,
@@ -40,11 +65,26 @@ const router = createBrowserRouter([
             path: routes.BOOKS,
             element: <div>Books</div>,
           },
+          {
+            path: routes.NEW_USER,
+            lazy: async () => {
+              const Component = await import('@/pages/new-user');
+              return {
+                Component: Component.default,
+              };
+            },
+          },
         ],
       },
+      // Does not use Authenticated and RootLayout
       {
         path: routes.AUTH,
-        element: <LoginPage />,
+        lazy: async () => {
+          const Component = await import('@/pages/auth');
+          return {
+            Component: Component.default,
+          };
+        },
       },
     ],
   },

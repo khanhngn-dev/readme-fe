@@ -24,35 +24,43 @@ type NavbarItem = {
   name: string;
 };
 
+const NavbarLink = ({
+  href,
+  isActive,
+  children,
+}: {
+  href: string;
+  isActive: boolean;
+  children?: React.ReactNode;
+}) => {
+  return (
+    <Link
+      to={href}
+      className={cn(
+        'flex-1 flex items-center justify-center transition-colors hover:bg-blue2',
+        isActive && 'text-blue9',
+      )}
+    >
+      {children}
+    </Link>
+  );
+};
+
 const NavbarItems: NavbarItem[] = [
   {
     children: ({ isActive, href }) => (
-      <Link
-        key={href}
-        to={href}
-        className={cn(
-          'flex-1 flex items-center justify-center transition-colors hover:bg-blue2',
-          isActive && 'text-blue9',
-        )}
-      >
+      <NavbarLink href={href} isActive={isActive}>
         <IconHome size={24} />
-      </Link>
+      </NavbarLink>
     ),
     href: routes.HOME,
     name: 'Home',
   },
   {
     children: ({ href, isActive }) => (
-      <Link
-        key={href}
-        to={href}
-        className={cn(
-          'flex-1 flex items-center justify-center transition-colors hover:bg-blue2',
-          isActive && 'text-blue9',
-        )}
-      >
+      <NavbarLink href={href} isActive={isActive}>
         <IconCircleDashedCheck size={24} />
-      </Link>
+      </NavbarLink>
     ),
     href: routes.GOALS,
     name: 'Goals',
@@ -64,34 +72,20 @@ const NavbarItems: NavbarItem[] = [
   },
   {
     children: ({ href, isActive }) => (
-      <Link
-        key={href}
-        to={href}
-        className={cn(
-          'flex-1 flex items-center justify-center transition-colors hover:bg-blue2',
-          isActive && 'text-blue9',
-        )}
-      >
+      <NavbarLink href={href} isActive={isActive}>
         <IconBook size={24} />
-      </Link>
+      </NavbarLink>
     ),
     href: routes.BOOKS,
     name: 'Books',
   },
   {
     children: ({ href, isActive }) => (
-      <Link
-        key={href}
-        to={href}
-        className={cn(
-          'flex-1 flex items-center justify-center transition-colors hover:bg-blue2',
-          isActive && 'text-blue9',
-        )}
-      >
+      <NavbarLink href={href} isActive={isActive}>
         <IconUser size={24} />
-      </Link>
+      </NavbarLink>
     ),
-    href: '/me',
+    href: routes.CURRENT_USER,
     name: 'Profile',
   },
 ];
@@ -133,7 +127,7 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        'fixed bottom-0 max-w-3xl h-14 flex items-stretch w-full bg-white border-[0.5px] border-black/10 justify-center overflow-clip transition-transform',
+        'fixed bottom-0 max-w-3xl h-14 flex items-stretch w-full bg-white justify-center overflow-clip transition-transform',
         hide && 'translate-y-14',
       )}
     >

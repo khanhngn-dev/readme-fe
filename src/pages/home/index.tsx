@@ -1,8 +1,10 @@
-import { Checkbox, Progress } from '@radix-ui/themes';
+import { Button, Card, Progress } from '@radix-ui/themes';
 import {
+  IconAlarm,
   IconBlockquote,
-  IconBulb,
+  IconBook,
   IconChevronRight,
+  IconCircleDashedCheck,
   IconMedal,
 } from '@tabler/icons-react';
 
@@ -48,38 +50,70 @@ const HomePage = () => {
         <span className="text-xl">{greeting.emoji}</span>
       </p>
       <h2 className="text-2xl font-semibold text-blue9">{user?.name}</h2>
-      <section className="grid grid-cols-2 gap-5 mt-10">
-        <div className="rounded-xl p-3 border col-span-2 hover:border-blue6 transition flex flex-col gap-4 cursor-pointer">
+      <section className="mt-10">
+        <div className="grid grid-cols-4 gap-3">
+          <Button
+            className="flex flex-col sm:flex-row gap-2 justify-center items-center rounded-xl p-2 h-full cursor-pointer"
+            variant="soft"
+          >
+            <IconBook size={36} />
+            <span className="text-sm">read</span>
+          </Button>
+          <Button
+            className="flex flex-col sm:flex-row gap-2 justify-center items-center rounded-xl p-2 h-full cursor-pointer"
+            variant="soft"
+          >
+            <IconCircleDashedCheck size={36} />
+            <span className="text-sm">goals</span>
+          </Button>
+          <Button
+            className="flex flex-col sm:flex-row gap-2 justify-center items-center rounded-xl p-2 h-full cursor-pointer"
+            variant="soft"
+          >
+            <IconAlarm size={36} />
+            <span className="text-sm">timer</span>
+          </Button>
+          <Button
+            className="flex flex-col sm:flex-row gap-2 justify-center items-center rounded-xl p-2 h-full cursor-pointer"
+            variant="soft"
+          >
+            <IconMedal size={36} />
+            <span className="text-sm">awards</span>
+          </Button>
+        </div>
+      </section>
+      <section className="grid grid-cols-2 gap-5 mt-8">
+        <div className="rounded-xl p-4 bg-white col-span-2 transition flex flex-col gap-4 cursor-pointer">
           <div className="flex justify-between items-center">
-            <h3 className="font-medium text-lg">Start reading</h3>
+            <h3 className="font-medium text-lg">start reading</h3>
             <button>
               <IconChevronRight size={18} />
             </button>
           </div>
-          <img src="/images/start_book.svg" className="h-32 w-full mt-3" />
+          <p className="text-sm text-black/60">
+            you have no books in progress. start by adding one!
+          </p>
         </div>
-        <div className="rounded-xl p-3 border hover:border-blue6 col-span-2 sm:col-span-1 transition flex flex-col gap-4 cursor-pointer">
+        <div className="rounded-xl p-4 bg-white transition col-span-2 flex flex-col gap-4 cursor-pointer">
           <div className="flex justify-between items-center">
-            <h3 className="font-medium text-lg">Achievements</h3>
+            <h3 className="font-medium text-lg">goals</h3>
             <button>
               <IconChevronRight size={18} />
             </button>
           </div>
-          <IconMedal size={64} className="mx-auto my-auto text-black/40" />
-          <div className="flex gap-4 items-center">
-            <Progress value={10} />
-            <span className="text-sm">4 / 67</span>
-          </div>
+          <p className="text-sm text-black/60">
+            you have no goals yet. start by setting one!
+          </p>
         </div>
-        <div className="rounded-xl p-3 border hover:border-blue6 col-span-2 sm:col-span-1 transition flex flex-col gap-4 cursor-pointer">
+        <div className="rounded-xl p-4 bg-white col-span-2 sm:col-span-1 transition flex flex-col gap-4 cursor-pointer">
           <div className="flex justify-between items-center">
-            <h3 className="font-medium text-lg">Suggestions</h3>
+            <h3 className="font-medium text-lg">suggestions</h3>
             <button>
               <IconChevronRight size={18} />
             </button>
           </div>
           <Carousel
-            className="max-h-40"
+            className="max-h-44"
             slides={[
               <div className="flex gap-3 h-full items-center pr-4">
                 <div className="flex-1">
@@ -103,21 +137,6 @@ const HomePage = () => {
                   alt="New book"
                 />
               </div>,
-              <div className="pr-4 h-full flex flex-col justify-center gap-1 relative">
-                <IconBlockquote size={32} />
-                <h4 className="font-medium">Today I learn</h4>
-                <p className="text-sm text-black/60">
-                  Reading 10 minutes a day can reduce stress levels by 68%
-                </p>
-              </div>,
-              <div className="pr-4 h-full flex flex-col justify-center gap-1">
-                <IconBulb size={32} />
-                <h4 className="font-medium">Hint</h4>
-                <p className="text-sm text-black/60">
-                  Readme has a Pomodoro timer to help you focus. Hit '+' to
-                  start
-                </p>
-              </div>,
             ]}
             options={{
               axis: 'y',
@@ -126,32 +145,20 @@ const HomePage = () => {
             showDot
           />
         </div>
-        <div className="rounded-xl p-3 border hover:border-blue6 transition col-span-2 flex flex-col gap-4 cursor-pointer">
+        <div className="rounded-xl p-4 bg-white transition flex flex-col col-span-2 sm:col-span-1 gap-4 cursor-pointer">
           <div className="flex justify-between items-center">
-            <h3 className="font-medium text-lg">Goals</h3>
+            <h3 className="font-medium text-lg">tips</h3>
             <button>
               <IconChevronRight size={18} />
             </button>
           </div>
-          <ul className="flex flex-col gap-3 text-sm">
-            <li className="flex gap-2">
-              <Checkbox defaultChecked />
-              <span className="line-clamp-2">Read 10 books</span>
-            </li>
-            <li className="flex gap-2">
-              <Checkbox />
-              <span className="line-clamp-2">
-                Finish 5 courses aaaaaaa aaaa
-              </span>
-            </li>
-            <li className="flex gap-2">
-              <Checkbox />
-              <span className="line-clamp-2">
-                Finish 5 courses aaaaaaa aaaa
-              </span>
-            </li>
-            <li>5 / 10 goals</li>
-          </ul>
+          <div className="pr-4 h-full flex flex-col justify-center gap-1 relative">
+            <IconBlockquote size={32} />
+            <h4 className="font-medium">today I learn</h4>
+            <p className="text-sm text-black/60">
+              reading 10 minutes a day can reduce stress levels by 68%
+            </p>
+          </div>
         </div>
       </section>
     </main>

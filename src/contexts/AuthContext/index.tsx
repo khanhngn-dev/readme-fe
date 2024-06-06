@@ -1,12 +1,13 @@
 import { IconLoader } from '@tabler/icons-react';
 import { createContext, useCallback, useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import { cn } from '@/lib/cn';
 import { noop } from '@/lib/common';
 import supabase from '@/lib/supabase';
+import routes from '@/pages/routes';
+import { getUserById } from '@/services/user';
 import { User } from '@/types/user';
-
-import NewUserForm from './NewUserForm';
 
 type AuthContextType = {
   user: User | null;
@@ -37,23 +38,21 @@ const AuthProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
     }
   });
 
+  const location = useLocation();
+
   useEffect(() => {
     // Get user data from the database
     const getUserData = async (id: string) => {
       try {
-        const { data, error } = await supabase
-          .from('users')
-          .select()
-          .eq('id', id);
-        if (error || data.length === 0) {
-          throw error || new Error('User not found');
+        const { data: user, error } = await getUserById(id);
+        if (error || !user) {
+          throw error || new Error('user not found');
         }
 
-        const [user] = data;
         setUser(user);
         localStorage.setItem('user', JSON.stringify(user));
       } catch (error: any) {
-        console.error('Failed to load user:', error.message);
+        console.error('failed to load user:', error.message);
         setUser(null);
         localStorage.removeItem('user');
       }
@@ -115,10 +114,13 @@ const AuthProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
       </div>
     );
 
+  if (user && !user.name && location.pathname !== routes.NEW_USER) {
+    return <Navigate to={routes.NEW_USER} replace={true} />;
+  }
+
   return (
     <AuthContext.Provider value={{ user, setUser, logout, loading }}>
       {children}
-      <NewUserForm />
     </AuthContext.Provider>
   );
 };

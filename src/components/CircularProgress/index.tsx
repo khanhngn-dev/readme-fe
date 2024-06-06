@@ -18,7 +18,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
 }) => {
   const size = 100;
   const center = size / 2;
-  const radius = center - strokeWidth;
+  const radius = center - strokeWidth / 2;
   const circumference = radius * 2 * Math.PI;
 
   const strokeDashoffset = circumference * (1 - (props.value || 0) / 100);
