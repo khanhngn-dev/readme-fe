@@ -53,7 +53,7 @@ const PomodoroClock = () => {
     >
       <div
         className={cn(
-          'absolute top-5 right-5 rounded-[48px] shadow-sm transition-all cursor-pointer duration-300 w-12 h-12 bg-white flex items-center justify-center flex-col space-y-0',
+          'absolute top-5 right-5 rounded-[48px] shadow transition-all cursor-pointer duration-300 w-12 h-12 bg-white flex items-center justify-center flex-col space-y-0',
           open && 'rounded-xl w-40 h-60 shadow-xl space-y-2 cursor-auto',
         )}
       >

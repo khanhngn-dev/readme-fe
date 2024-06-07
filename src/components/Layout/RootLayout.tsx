@@ -7,7 +7,7 @@ import Navbar from '../Navbar';
 const RootLayout = () => {
   return (
     <PomodoroProvider>
-      <div className="max-w-3xl mx-auto min-h-lvh pb-14">
+      <div className="max-w-3xl mx-auto min-h-lvh pb-navbar">
         <Outlet />
         <Navbar />
       </div>

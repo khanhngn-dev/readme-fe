@@ -12,6 +12,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        navbar: 'var(--navbar-height)',
+      },
       colors: {
         ...blue,
         ...red,

@@ -1,4 +1,4 @@
-import { Button, Card, Progress } from '@radix-ui/themes';
+import { Button } from '@radix-ui/themes';
 import {
   IconAlarm,
   IconBlockquote,
@@ -83,8 +83,8 @@ const HomePage = () => {
         </div>
       </section>
       <section className="grid grid-cols-2 gap-5 mt-8">
-        <div className="rounded-xl p-4 bg-white col-span-2 transition flex flex-col gap-4 cursor-pointer">
-          <div className="flex justify-between items-center">
+        <div className="rounded-xl p-4 bg-white col-span-2 transition flex flex-col gap-4">
+          <div className="flex justify-between items-center cursor-pointer">
             <h3 className="font-medium text-lg">start reading</h3>
             <button>
               <IconChevronRight size={18} />
@@ -94,8 +94,8 @@ const HomePage = () => {
             you have no books in progress. start by adding one!
           </p>
         </div>
-        <div className="rounded-xl p-4 bg-white transition col-span-2 flex flex-col gap-4 cursor-pointer">
-          <div className="flex justify-between items-center">
+        <div className="rounded-xl p-4 bg-white transition col-span-2 flex flex-col gap-4">
+          <div className="flex justify-between items-center cursor-pointer">
             <h3 className="font-medium text-lg">goals</h3>
             <button>
               <IconChevronRight size={18} />
@@ -105,8 +105,8 @@ const HomePage = () => {
             you have no goals yet. start by setting one!
           </p>
         </div>
-        <div className="rounded-xl p-4 bg-white col-span-2 sm:col-span-1 transition flex flex-col gap-4 cursor-pointer">
-          <div className="flex justify-between items-center">
+        <div className="rounded-xl p-4 bg-white col-span-2 sm:col-span-1 transition flex flex-col gap-4">
+          <div className="flex justify-between items-center cursor-pointer">
             <h3 className="font-medium text-lg">suggestions</h3>
             <button>
               <IconChevronRight size={18} />
@@ -145,8 +145,8 @@ const HomePage = () => {
             showDot
           />
         </div>
-        <div className="rounded-xl p-4 bg-white transition flex flex-col col-span-2 sm:col-span-1 gap-4 cursor-pointer">
-          <div className="flex justify-between items-center">
+        <div className="rounded-xl p-4 bg-white transition flex flex-col col-span-2 sm:col-span-1 gap-4">
+          <div className="flex justify-between items-center cursor-pointer">
             <h3 className="font-medium text-lg">tips</h3>
             <button>
               <IconChevronRight size={18} />

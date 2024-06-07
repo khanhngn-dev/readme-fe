@@ -25,7 +25,7 @@ const NavbarAction = () => {
         if (!v) setIsOpen(v);
       }}
     >
-      <DropdownMenu.Trigger className="flex-1 flex items-center justify-center transition-colors hover:bg-blue2 cursor-pointer">
+      <DropdownMenu.Trigger className="flex-1 flex items-center justify-center transition-colors hover:bg-blue9/20 cursor-pointer">
         <a
           onClick={() => {
             setIsOpen((prev) => !prev);

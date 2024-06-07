@@ -37,7 +37,7 @@ const NavbarLink = ({
     <Link
       to={href}
       className={cn(
-        'flex-1 flex items-center justify-center transition-colors hover:bg-blue2',
+        'flex-1 flex items-center justify-center transition-colors hover:bg-blue9/20',
         isActive && 'text-blue9',
       )}
     >
@@ -106,12 +106,22 @@ const Navbar = () => {
       const target = e.target as Document;
       const currentScrollY = target.documentElement.scrollTop;
 
+      // Reached bottom show navbar
+      if (
+        currentScrollY + window.innerHeight >=
+        target.documentElement.scrollHeight - 12 // bottom padding
+      ) {
+        setHide(false);
+        return;
+      }
       // Hide navbar when scrolling down more than 50px compared to the previous scroll
-      // Immediately show navbar when scrolling up
       if (currentScrollY > prevScrollY + 100) {
         setHide(true);
         prevScrollY = currentScrollY;
-      } else if (currentScrollY < prevScrollY) {
+        return;
+      }
+      // Immediately show navbar when scrolling up
+      if (currentScrollY < prevScrollY) {
         setHide(false);
         prevScrollY = currentScrollY;
       }
@@ -127,21 +137,17 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        'fixed bottom-0 max-w-3xl h-14 flex items-stretch w-full bg-white justify-center overflow-clip transition-transform',
-        hide && 'translate-y-14',
+        'fixed bottom-0 max-w-3xl h-navbar w-full flex items-center transition-transform p-3',
+        hide && 'translate-y-full',
       )}
     >
-      <div
-        className="absolute top-0 left-0 w-1/5 transition-[left] border-t border-t-blue9"
-        style={{
-          left: `${activeIndex * 20}%`,
-        }}
-      ></div>
-      {NavbarItems.map(({ href, children: Children, name }, index) => {
-        return (
-          <Children key={name} isActive={activeIndex === index} href={href} />
-        );
-      })}
+      <div className="flex items-stretch w-full justify-center bg-white/40 backdrop-blur rounded-xl overflow-clip shadow h-12">
+        {NavbarItems.map(({ href, children: Children, name }, index) => {
+          return (
+            <Children key={name} isActive={activeIndex === index} href={href} />
+          );
+        })}
+      </div>
     </div>
   );
 };
